@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<th:block th:include="fragments/header :: head"></th:block>
+</head>
+<body>
+	<th:block th:include="fragments/header :: header"></th:block>
+	<div class="container">
+		<h2>Attribute groups list</h2>
+		<a class="btn btn-primary my-3" th:href="@{/attribute-group/new}" role="button">Create new attribute group</a>
+		<div th:if="${not #lists.isEmpty(attributeGroups)}">
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="attribute : ${attributeGroups}">
+					<td th:text="${attribute.id}"><a href="/product/${attribute.id}">Id</a></td>
+					<td th:text="${attribute.name}">descirption</td>
+					<td><a th:href="${'/attribute-group/edit/' + attribute.id}">Edit</a></td>
+					<td><a th:href="${'/attribute-group/delete/' + attribute.id}">Delete</a></td>
+				</tr>
+			</table>
+		</div>
+		<div th:include="fragments/pagination :: pagination(${attributeGroups})"></div>
+	</div>
+</body>
+</html>

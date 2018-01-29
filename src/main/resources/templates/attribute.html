@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<th:block th:include="fragments/header :: head"></th:block>
+</head>
+<body>
+	<th:block th:include="fragments/header :: header"></th:block>
+	<div class="container">
+		<div>
+			<form class="form-horizontal" th:object="${attribute}"
+				th:action="@{/attribute}" method="post">
+				<input type="hidden" th:field="*{id}" />
+				<div class="form-group">
+					<label>Name:</label> <input type="text" class="form-control"
+						th:field="*{name}" />
+				</div>
+				<button type="submit" class="btn btn-default">Save</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

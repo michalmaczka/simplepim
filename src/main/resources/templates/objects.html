@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<th:block th:include="fragments/header :: head(subtitle='Objects list')"></th:block>
+</head>
+<body>
+	<th:block th:include="fragments/header :: header"></th:block>
+	<div class="container">
+		<h2>Object list</h2>
+		<a class="btn btn-primary my-3" th:href="@{/object/new}" role="button">Create
+			new object</a>
+		<div th:if="${not #lists.isEmpty(objects)}">
+			<table class="table table-striped">
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Created at</th>
+					<th>Edit</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="object : ${objects}">
+					<td th:text="${object.id}"><a href="/product/${object.id}">Id</a></td>
+					<td th:text="${object.name}">description</td>
+					<td th:text="${object.objectType.name}">description</td>
+					<td th:text="${object.created}">created</td>
+					<td><a th:href="${'/object/edit/' + object.id}">Edit</a></td>
+					<td><a th:href="${'/object/delete/' + object.id}">Delete</a></td>
+				</tr>
+			</table>
+		</div>
+		<div th:include="fragments/pagination :: pagination(${objects})"></div>
+	</div>
+</body>
+</html>

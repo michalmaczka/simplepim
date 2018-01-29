@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<th:block th:include="fragments/header :: head"></th:block>
+</head>
+<body>
+	<th:block th:include="fragments/header :: header"></th:block>
+	<div class="container">
+		<div>
+			<form class="form-horizontal" th:object="${objectType}"
+				th:action="@{/object-type}" method="post">
+				<input type="hidden" th:field="*{id}" />
+				<div class="form-group">
+					<label>Name:</label> <input type="text" class="form-control"
+						th:field="*{name}" />
+				</div>
+				<div class="form-group">
+					<label>Attribute groups:</label> <input type="hidden"
+						class="form-control" th:field="*{attributeGroups}" />
+					<div class="container by-4">
+						<div class="row">
+							<div class="col list-group-item active mb-3">Selected
+								groups:</div>
+							<div class="col-md-auto"></div>
+							<div class="col list-group-item active mb-3">All groups:</div>
+						</div>
+						<div class="row">
+							<div class="col px-0">
+								<ul id="selectedElements" class="list-group">
+									<li th:each="attributeGroup : *{attributeGroups}"
+										th:id="${attributeGroup.id}" class="list-group-item"><span
+										th:text="${attributeGroup.name}"></span> <br /> <small><span
+											th:each="attribute,iterStat : ${attributeGroup.attributes}"
+											th:object="${attribute}"
+											th:text="!${iterStat.last} ? *{name} + ', ': *{name}"></span></small></li>
+								</ul>
+							</div>
+							<div class="col-md-auto"></div>
+							<div class="col px-0">
+								<ul id="allElements" class="list-group">
+									<li th:each="attributeGroup : ${allAttributeGroups}"
+										th:if="not ${#lists.contains(objectType.attributeGroups, attributeGroup)}"
+										th:id="${attributeGroup.id}" class="list-group-item"><span
+										th:text="${attributeGroup.name}"></span> <br /> <small><span
+											th:each="attribute,iterStat : ${attributeGroup.attributes}"
+											th:object="${attribute}"
+											th:text="!${iterStat.last} ? *{name} + ', ': *{name}"></span></small>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="row my-4">
+							<button type="submit" class="btn btn-default">Save</button>
+						</div>
+					</div>
+			</form>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			$("#selectedElements").sortable({
+				connectWith : "ul"
+			});
+
+			$("#allElements").sortable({
+				connectWith : "ul"
+			});
+
+			$("#selectedElements, #allElements").disableSelection();
+
+			$('form').submit(
+					function() {
+						$('input[name="attributeGroups"]').val(
+								$("#selectedElements").sortable("toArray"));
+					});
+		});
+	</script>
+</body>
+</html>

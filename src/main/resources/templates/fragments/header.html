@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous">
+<link href="/js/lib/jquery-ui/jquery-ui.structure.min.css"
+	rel="stylesheet">
+<link href="/js/lib/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet">
+<script src="/js/lib/jquery-3.2.1.min.js"></script>
+<script src="/js/lib/jquery-ui/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="/css/style.css" />
+<title th:text="${subtitle}? ${subtitle} + ' - SimplePIM' : 'SimplePIM - Product Information Management system'">SimplePIM Title</title>
+</head>
+<body>
+	<div class="container">
+		<div th:fragment="header">
+			<header>
+				<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+					<a class="navbar-brand" href="/">SimplePIM</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse"
+						data-target="#navbarCollapse" aria-controls="navbarCollapse"
+						aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarCollapse">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/}">Objects<span
+									th:text="${controller}"></span></a>
+							</li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/attributes}">Attributes</a></li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/attribute-groups}">Attribute groups</a></li>
+							<li class="nav-item"><a class="nav-link"
+								th:href="@{/object-types}">Object types</a></li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+		</div>
+	</div>
+</body>
+</html>
